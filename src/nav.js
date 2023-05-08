@@ -6,7 +6,7 @@ const Nav = () => {
     <nav>
       <h1>Bloomtech</h1>
       <div>
-        <Link>
+        <Link to="/">
           <button>Home</button>
         </Link>
         <Link>
