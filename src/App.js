@@ -1,11 +1,19 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import Nav from "./Nav";
+import Home from "./Home";
+import Pizza from "./Pizza";
+import Confirmation from "./Confirmation";
 
 const App = () => {
   return (
     <>
-      <h1>Lambda Eats</h1>
-      <p>You can remove this code and create your own header</p>
+      <Nav />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/pizza" element={<Pizza />} />
+        <Route path="/confirmation" element={<Confirmation />} />
+      </Routes>
     </>
   );
 };
