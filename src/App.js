@@ -5,7 +5,7 @@ import Home from "./home";
 import Pizza from "./pizza";
 import Confirmation from "./confirmation";
 
-function App() {
+const App = () => {
   return (
     <div>
       <Nav />
@@ -16,5 +16,5 @@ function App() {
       </Routes>
     </div>
   );
-}
+};
 export default App;
