@@ -1,55 +1,135 @@
 import React from "react";
-import pizzaphoto from "./Assets/Pizza.jpg";
+import Pizzajpg from "./Assets/Pizza.jpg";
 
 const Pizza = () => {
   return (
-    <div className="flex-col mx-auto">
+    <div className="mx-auto max-w-lg border border-black">
       <div>
-        <h3>Build Your Own Pizza</h3>
-        <img className="w-28 h-16" src={pizzaphoto} alt="" />
+        <h3 className="py-4 text-center">Build Your Own Pizza</h3>
+        <img alt="" src={Pizzajpg} />
       </div>
       <div>
-        <h3>Build Your Own Pizza</h3>
-        <form>
-          <label>
-            Choice of Size
+        <h3 className="px-5 py-5">Select Your Customizations</h3>
+        <form className="">
+          <div className="flex flex-col px-5 py-3 bg-gray-200">
+            <label>Choice of Size</label>
             <small>Required</small>
-            <select>
+          </div>
+
+          <div className="px-5 py-3">
+            <select className="px-2 py-2 w-48 bg-white border border-black">
+              <option default>select</option>
               <option>Small</option>
               <option>Medium</option>
               <option>Large</option>
             </select>
-          </label>
+          </div>
 
-          <label>
-            Choice of Sauce
+          <div className="flex flex-col px-5 py-3 bg-gray-200">
+            <label>Choice of Sauce</label>
             <small>Required</small>
-            <input />
-          </label>
+          </div>
+          <div className="flex flex-col w-48 px-5 py-2">
+            <div>
+              <input className="my-1" type="radio" />
+              <label className="mx-3">Original Red</label>
+            </div>
+            <div>
+              <input className="my-1" type="radio" />
+              <label className="mx-3">Garlic Ranch</label>
+            </div>
+            <div>
+              <input className="my-1" type="radio" />
+              <label className="mx-3">BBQ Sauce</label>
+            </div>
+            <div>
+              <input className="my-1" type="radio" />
+              <label className="mx-3">Spinach Alfredo</label>
+            </div>
+          </div>
 
-          <label>
-            Add Toppings
+          <div className="flex flex-col px-5 py-3 bg-gray-200">
+            <label>Add Toppings</label>
             <small>Choose up to 10</small>
-            <input />
-          </label>
+          </div>
 
-          <label>
-            Choice of Substitute
+          <div className="flex flex-col flex-wrap max-h-52 px-5 py-3">
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Pepperoni</label>
+            </div>
+
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Diced Tomatoes</label>
+            </div>
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Sausage</label>
+            </div>
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Black Olives</label>
+            </div>
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Canadian Bacon</label>
+            </div>
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Roasted Garlic</label>
+            </div>
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Spicy Italian Sausage</label>
+            </div>
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Artichoke Hearts</label>
+            </div>
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Grilled Chicken</label>
+            </div>
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Three Cheese</label>
+            </div>
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Onions</label>
+            </div>
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Pineapple</label>
+            </div>
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Green Pepper</label>
+            </div>
+            <div className="w-42">
+              <input className="mr-2" type="checkbox" />
+              <label>Extra Cheese</label>
+            </div>
+          </div>
+
+          <div>
+            <label>Choice of Substitute</label>
             <small>Choose up to 1</small>
             <input />
-          </label>
+          </div>
 
-          <label>
-            Special Instructions
+          <div>
+            <label>Special Instructions</label>
             <input type="text" placeholder="Anything else you'd like to add?" />
-          </label>
+          </div>
 
-          <label>
+          <div>
             <input type="number" />
-          </label>
+          </div>
 
           <button>
-            <p>Add To Order</p>
+            <p>Add to Order</p>
             <p>$17.99</p>
           </button>
         </form>
