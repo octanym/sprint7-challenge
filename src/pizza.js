@@ -3,7 +3,7 @@ import Pizzajpg from "./Assets/Pizza.jpg";
 
 const Pizza = () => {
   return (
-    <div className="mx-auto max-w-lg border border-black">
+    <div className="mx-auto my-5 max-w-lg border border-black">
       <div>
         <h3 className="py-4 text-center">Build Your Own Pizza</h3>
         <img alt="" src={Pizzajpg} />
@@ -113,25 +113,33 @@ const Pizza = () => {
             </div>
           </div>
 
-          <div>
+          <div className="flex flex-col px-5 py-3 bg-gray-200">
             <label>Choice of Substitute</label>
             <small>Choose up to 1</small>
-            <input />
+          </div>
+          <div className="px-5 py-3">
+            <input className="mr-2" type="checkbox" />
+            <label>Gluten Free Crust (+ $100)</label>
           </div>
 
-          <div>
+          <div className="px-5 py-3 bg-gray-200">
             <label>Special Instructions</label>
-            <input type="text" placeholder="Anything else you'd like to add?" />
+          </div>
+          <div className="px-5 py-3">
+            <input
+              className="w-96 px-3 py-3 border border-black"
+              type="text"
+              placeholder="Anything else you'd like to add?"
+            />
           </div>
 
-          <div>
-            <input type="number" />
+          <div className="flex px-5 py-3 border-t border-black">
+            <input className="w-20 mr-5 border border-black" type="number" />
+            <button className="flex justify-between w-72 px-3 py-1 border border-black">
+              <p>Add to Order</p>
+              <p>$17.99</p>
+            </button>
           </div>
-
-          <button>
-            <p>Add to Order</p>
-            <p>$17.99</p>
-          </button>
         </form>
       </div>
     </div>
