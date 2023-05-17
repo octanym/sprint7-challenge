@@ -6,6 +6,9 @@ module.exports = {
       fontFamily: {
         Inconsolata: ["Inconsolata", "mono-space"],
       },
+      backgroundImage: {
+        "header-image": "url('/src/Assets/Pizza.jpg')",
+      },
     },
   },
   plugins: [],
