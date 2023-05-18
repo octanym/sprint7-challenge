@@ -134,7 +134,10 @@ const Pizza = () => {
           </div>
 
           <div className="flex px-5 py-3 border-t border-black">
-            <input className="w-20 mr-5 border border-black" type="number" />
+            <input
+              className="w-20 mr-5 text-center border border-black"
+              type="number"
+            />
             <button className="flex justify-between w-72 px-3 py-1 border border-black">
               <p>Add to Order</p>
               <p>$17.99</p>

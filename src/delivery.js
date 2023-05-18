@@ -4,10 +4,13 @@ import { restaurants } from "./data";
 
 const Delivery = () => {
   return (
-    <div>
-      {restaurants.map((rest, index) => (
-        <Restaurants key={index} props={rest} />
-      ))}
+    <div className="mt-8 mx-12 my-5">
+      <div className="flex justify-between my-4">
+        {restaurants.map((rest, index) => (
+          <Restaurants key={index} restaurant={rest} />
+        ))}
+      </div>
+      <hr className="bg-black h-1 mt-12" />
     </div>
   );
 };

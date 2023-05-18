@@ -8,6 +8,7 @@ module.exports = {
       },
       backgroundImage: {
         "header-image": "url('/src/Assets/Pizza.jpg')",
+        "pizza-gif": "url('/src/Assets/DogWithPizza.gif')",
       },
     },
   },
