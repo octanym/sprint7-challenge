@@ -10,15 +10,23 @@ const Pizza = () => {
     special: "",
   });
 
-  const [toppings, setToppings] = useState({ topping1: "", topping2: "" });
+  const [toppings, setToppings] = useState([]);
 
-  const handleChange = (e) => {
-    const { value, name } = e.target;
+  const handleToppings = (e) => {
+    const replaced = toppings.length > 1 ? toppings.pop() : "none";
+    setToppings([replaced, e.target.value]);
+  };
 
-    /* const valid = type === "checkbox" ? checked : value; */
+  const handleInputs = (e) => {
+    console.log(data, toppings);
+    // explicitly returning the hook values below enables the correct behavior but makes the form inputs unreceptive
+    if (toppings.includes("none") || toppings[0] === toppings[1]) {
+      return setData({ ...data, topping1: true, topping2: false });
+    } else if (toppings[0] !== toppings[1]) {
+      return setData({ ...data, topping1: true, topping2: true });
+    }
 
-    setToppings({ ...toppings, [name]: value });
-    /* setData({ ...data, [name]: valid }); */
+    setData({ ...data, [e.target.name]: e.target.value });
   };
 
   return (
@@ -38,7 +46,10 @@ const Pizza = () => {
           <div className="px-5 py-3">
             <select
               className="px-2 py-2 w-48 bg-white border border-black"
+              name="size"
+              value={data.size}
               id="size-dropdown"
+              onChange={handleInputs}
             >
               <option default>select</option>
               <option>Small</option>
@@ -79,14 +90,11 @@ const Pizza = () => {
             <div className="w-42">
               <input
                 className="mr-2"
-                type="checkbox"
-                checked={
-                  toppings.topping1 === "Pepperoni" ||
-                  toppings.topping2 === "Pepperoni"
-                }
+                name="topping"
                 value="Pepperoni"
-                name={toppings.topping1 ? "topping2" : "topping1"}
-                onChange={handleChange}
+                type="checkbox"
+                checked={toppings.includes("Pepperoni")}
+                onChange={handleToppings}
               />
               <label>Pepperoni</label>
             </div>
@@ -94,42 +102,33 @@ const Pizza = () => {
             <div className="w-42">
               <input
                 className="mr-2"
-                type="checkbox"
-                checked={
-                  toppings.topping1 === "Diced Tomatoes" ||
-                  toppings.topping2 === "Diced Tomatoes"
-                }
+                name="topping"
                 value="Diced Tomatoes"
-                name={toppings.topping1 ? "topping2" : "topping1"}
-                onChange={handleChange}
+                type="checkbox"
+                checked={toppings.includes("Diced Tomatoes")}
+                onChange={handleToppings}
               />
               <label>Diced Tomatoes</label>
             </div>
             <div className="w-42">
               <input
                 className="mr-2"
-                type="checkbox"
-                checked={
-                  toppings.topping1 === "Sausage" ||
-                  toppings.topping2 === "Sausage"
-                }
+                name="topping"
                 value="Sausage"
-                name={toppings.topping1 ? "topping2" : "topping1"}
-                onChange={handleChange}
+                type="checkbox"
+                checked={toppings.includes("Sausage")}
+                onChange={handleToppings}
               />
               <label>Sausage</label>
             </div>
             <div className="w-42">
               <input
                 className="mr-2"
-                type="checkbox"
-                checked={
-                  toppings.topping1 === "Black Olives" ||
-                  toppings.topping2 === "Black Olives"
-                }
+                name="topping"
                 value="Black Olives"
-                name={toppings.topping1 ? "topping2" : "topping1"}
-                onChange={handleChange}
+                type="checkbox"
+                checked={toppings.includes("Black Olives")}
+                onChange={handleToppings}
               />
               <label>Black Olives</label>
             </div>
@@ -150,18 +149,24 @@ const Pizza = () => {
           <div className="px-5 py-3">
             <input
               className="w-96 px-3 py-3 border border-black"
+              name="special"
+              value={data.special}
               id="special-text"
               type="text"
               placeholder="Anything else you'd like to add?"
+              onChange={handleInputs}
             />
           </div>
 
           <div className="flex flex-wrap px-5 py-3 border-t border-black">
             <input
               className="w-96 px-3 py-1 mr-36 mb-2 border border-black"
+              name="name"
+              value={data.name}
               id="name-input"
               type="text"
               placeholder="What's your name?"
+              onChange={handleInputs}
             />
             <input
               className="w-20 mr-4 text-center border border-black"
