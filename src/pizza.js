@@ -1,33 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import * as yup from "yup";
+import axios from "axios";
 import Pizzajpg from "./Assets/Pizza.jpg";
 
 const Pizza = () => {
+  const [disabled, setDisabled] = useState(true);
+  const [errors, setErrors] = useState({ name: "", size: "" });
   const [data, setData] = useState({
     name: "",
     size: "",
     topping1: false,
     topping2: false,
+    topping3: false,
+    topping4: false,
     special: "",
   });
 
-  const [toppings, setToppings] = useState([]);
+  const schema = yup.object().shape({
+    name: yup
+      .string()
+      .required("you didn't enter a name")
+      .min(2, "name must be at least 2 characters"),
+    size: yup
+      .string()
+      .oneOf(["Small", "Medium", "Large"], "you didn't select a size"),
+    topping1: yup.boolean(),
+    topping2: yup.boolean(),
+    topping3: yup.boolean(),
+    topping4: yup.boolean(),
+    special: yup.string(),
+  });
 
-  const handleToppings = (e) => {
-    const replaced = toppings.length > 1 ? toppings.pop() : "none";
-    setToppings([replaced, e.target.value]);
+  const setDataErrors = (name, value) => {
+    yup
+      .reach(schema, name)
+      .validate(value)
+      .then(() => setErrors({ ...errors, [name]: "" }))
+      .catch((err) => setErrors({ ...errors, [name]: err.errors[0] }));
   };
 
   const handleInputs = (e) => {
-    console.log(data, toppings);
-    // explicitly returning the hook values below enables the correct behavior but makes the form inputs unreceptive
-    if (toppings.includes("none") || toppings[0] === toppings[1]) {
-      return setData({ ...data, topping1: true, topping2: false });
-    } else if (toppings[0] !== toppings[1]) {
-      return setData({ ...data, topping1: true, topping2: true });
-    }
-
-    setData({ ...data, [e.target.name]: e.target.value });
+    const valueToUse =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    setDataErrors(e.target.name, e.target.value);
+    setData({ ...data, [e.target.name]: valueToUse });
   };
+
+  useEffect(() => {
+    schema.isValid(data).then((valid) => setDisabled(!valid));
+  }, [data, schema]);
 
   return (
     <div className="mx-auto my-5 max-w-lg border border-black">
@@ -51,11 +72,12 @@ const Pizza = () => {
               id="size-dropdown"
               onChange={handleInputs}
             >
-              <option default>select</option>
-              <option>Small</option>
-              <option>Medium</option>
-              <option>Large</option>
+              <option value="">select</option>
+              <option value="Small">Small</option>
+              <option value="Medium">Medium</option>
+              <option value="Large">Large</option>
             </select>
+            <div className="text-red-500 min-w-full">{errors.size}</div>
           </div>
 
           <div className="flex flex-col px-5 py-3 bg-gray-200">
@@ -90,11 +112,11 @@ const Pizza = () => {
             <div className="w-42">
               <input
                 className="mr-2"
-                name="topping"
+                name="topping1"
                 value="Pepperoni"
                 type="checkbox"
-                checked={toppings.includes("Pepperoni")}
-                onChange={handleToppings}
+                checked={data.topping1}
+                onChange={handleInputs}
               />
               <label>Pepperoni</label>
             </div>
@@ -102,33 +124,33 @@ const Pizza = () => {
             <div className="w-42">
               <input
                 className="mr-2"
-                name="topping"
+                name="topping2"
                 value="Diced Tomatoes"
                 type="checkbox"
-                checked={toppings.includes("Diced Tomatoes")}
-                onChange={handleToppings}
+                checked={data.topping2}
+                onChange={handleInputs}
               />
               <label>Diced Tomatoes</label>
             </div>
             <div className="w-42">
               <input
                 className="mr-2"
-                name="topping"
+                name="topping3"
                 value="Sausage"
                 type="checkbox"
-                checked={toppings.includes("Sausage")}
-                onChange={handleToppings}
+                checked={data.topping3}
+                onChange={handleInputs}
               />
               <label>Sausage</label>
             </div>
             <div className="w-42">
               <input
                 className="mr-2"
-                name="topping"
+                name="topping4"
                 value="Black Olives"
                 type="checkbox"
-                checked={toppings.includes("Black Olives")}
-                onChange={handleToppings}
+                checked={data.topping4}
+                onChange={handleInputs}
               />
               <label>Black Olives</label>
             </div>
@@ -168,6 +190,7 @@ const Pizza = () => {
               placeholder="What's your name?"
               onChange={handleInputs}
             />
+            <div className="text-red-500 min-w-full">{errors.name}</div>
             <input
               className="w-20 mr-4 text-center border border-black"
               type="number"
@@ -175,6 +198,7 @@ const Pizza = () => {
             <button
               className="flex justify-between w-72 px-3 py-1 border border-black"
               id="order-button"
+              disabled={disabled}
             >
               <p>Add to Order</p>
               <p>$17.99</p>
