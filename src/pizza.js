@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import axios from "axios";
 import Pizzajpg from "./Assets/Pizza.jpg";
 
 const Pizza = () => {
+  const navigate = useNavigate();
+
   const [disabled, setDisabled] = useState(true);
+
   const [errors, setErrors] = useState({ name: "", size: "" });
+
   const [data, setData] = useState({
     name: "",
     size: "",
@@ -46,6 +51,42 @@ const Pizza = () => {
     setData({ ...data, [e.target.name]: valueToUse });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const { name, size, topping1, topping2, topping3, topping4, special } =
+      data;
+
+    const order = {
+      name: name.trim(),
+      size: size,
+      topping1: topping1,
+      topping2: topping2,
+      topping3: topping3,
+      topping4: topping4,
+      special: special.trim(),
+    };
+
+    axios
+      .post("https://reqres.in/api/users", order)
+      .then((res) => {
+        const { name, size, topping1, topping2, special } = res.data;
+        setData({
+          name: name,
+          size: size,
+          topping1: topping1,
+          topping2: topping2,
+          special: special,
+        });
+      })
+      .catch((err) => {
+        alert("there was an issue placing your order", err.errors);
+      });
+
+    navigate("/confirmation");
+    return data;
+  };
+
   useEffect(() => {
     schema.isValid(data).then((valid) => setDisabled(!valid));
   }, [data, schema]);
@@ -58,7 +99,7 @@ const Pizza = () => {
       </div>
       <div>
         <h3 className="px-5 py-5">Select Your Customizations</h3>
-        <form id="pizza-form">
+        <form id="pizza-form" onSubmit={handleSubmit}>
           <div className="flex flex-col px-5 py-3 bg-gray-200">
             <label>Choice of Size</label>
             <small>Required</small>
